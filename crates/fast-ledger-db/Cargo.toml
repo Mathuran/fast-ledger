@@ -1,0 +1,11 @@
+[package]
+name = "fast-ledger-db"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+fast-ledger-core = { path = "../fast-ledger-core" }
+serde = { workspace = true }
+thiserror = { workspace = true }
+crc32fast = { workspace = true }

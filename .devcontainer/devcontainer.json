@@ -1,0 +1,42 @@
+{
+  "name": "Fast Ledger (Lean 4 + Rust + Remote Desktop)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "forwardPorts": [6080, 5901, 8080],
+  "portsAttributes": {
+    "6080": {
+      "label": "Remote Desktop (noVNC Web)",
+      "onAutoForward": "openBrowser"
+    },
+    "5901": {
+      "label": "VNC Server"
+    },
+    "8080": {
+      "label": "Fast Ledger HTTP API"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "leanprover.lean4",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+      ],
+      "settings": {
+        "rust-analyzer.check.command": "clippy",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "cd spec && lake build && cd .. && cargo check --workspace",
+  "remoteUser": "vscode"
+}
